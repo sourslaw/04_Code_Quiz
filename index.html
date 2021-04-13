@@ -16,6 +16,31 @@
 </head>
 
 <body>
+	<!-- Modal -->
+	<div class="modal fade" id="scores" tabindex="-1" aria-labelledby="optionsLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="highScoresLabel">h i g h s c o r e s</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+						<!-- open space for list -->
+
+					</div>
+				</div>
+				<div class="modal-footer justify-content-center">
+					<div class="container">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+							id="close">close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal end -->
+
 	<div class="container">
 		<div class="row justify-content-center mt-5">
 			<div class="col-8">
@@ -46,7 +71,7 @@
 				<div class="card text-center mt-2" id="standardCardBody">
 					<!-- <h2 class="text-center mt-3">placeholder</h2> -->
 					<!-- textarea -->
-					<div class="row justify-content-center mt-1">
+					<div class="row justify-content-center mt-1" id="startPlace">
 						<div class="col-11">
 							<hr />
 							<input class="form-control text-center" type="text" placeholder="placeholder"

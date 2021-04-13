@@ -1,18 +1,18 @@
+
+// stats and timer section
 let score = 0;
 
+// stats dom stuff
 let timer = document.getElementById("timer");
 let pointsEarned = document.getElementById("currentScore");
-let highScore = document.getElementById("highScore");
-
-const questionDisplay =  document.getElementById("magicHole");
-
 // timer.innerText = time;
 pointsEarned.innerText = score;
 
-
+let highScore = document.getElementById("highScore");
+// queston textarea
+const questionDisplay = document.getElementById("magicHole");
 // buttons
 const buttons = document.querySelector("#buttons");
-
 
 // questions array
 const questions = [
@@ -56,16 +56,15 @@ const questions = [
 	}
 ];
 
+// for index of current question in the questions array
 let current = 0;
-
+// main function and logic
 function running() {
-	// let current = 0;
-	let choosen = "";
 
 	questionDisplay.value = questions[current].question;
 
 	// generate buttons
-	for (let i = 0; i <questions[current].choices.length; i++) {
+	for (let i = 0; i < questions[current].choices.length; i++) {
 
 		let buttEl = document.createElement("button");
 		buttEl.innerText = questions[current].choices[i];
@@ -78,9 +77,7 @@ function running() {
 
 		// buttons event listener
 		buttEl.addEventListener("click", function() {
-			console.log("clicked");
-			console.log(current);
-			console.log(questions[current].choices[i]);
+			console.log(`clicked, ${current}, ${questions[current].choices[i]}`);
 
 			// removes child nodes (https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/)
 			function removeAllChildNodes(buttons) {
@@ -92,23 +89,32 @@ function running() {
 
 			// points logic
 			if (questions[current].choices[i] == questions[current].correct) {
-				console.log("correct");
 				score+=5;
-				console.log(score);
+				console.log(`correct, ${score}`);
 				pointsEarned.innerText = score;
 			// adds seconds to timer
 				secondsLeft+=10;
 			} else {
 				console.log("wrong");
-			}
-
+			};
 
 			// move onto the next question
 			current++;
-			running();
+
+			if (current == questions.length) {
+				// questionDisplay.value = "game is over";
+				questionDisplay.value = `game is over. your score is ${score}`;
+				
+				console.log('bye bye');
+				gameOver();
+			} else {
+				running();
+			};
+
 		});
-	}
-}
+	};
+};
+
 
 let secondsLeft = 205;
 
@@ -124,6 +130,8 @@ function setTime() {
 }
 
 function starting() {
+	questionDisplay.value = "welcome";
+
 	let startButtEl = document.createElement("button");
 	startButtEl.innerText = "start";
 	startButtEl.setAttribute("class", "btn btn-primary mb-2 m-1");
@@ -136,8 +144,50 @@ function starting() {
 		startButtEl.remove();
 		setTime();
 		running();
-
 	});
 };
+
+function gameOver() {
+
+	let highScores = document.createElement("button");
+	highScores.innerText = "high scores";
+	highScores.setAttribute("class", "btn btn-primary mb-2 m-1");
+	highScores.setAttribute("type", "button");
+	highScores.setAttribute("id", "highScores");
+	highScores.setAttribute("data-bs-toggle", "modal");
+	highScores.setAttribute("data-bs-target", "#scores");
+
+	let tryAgain = document.createElement("button");
+	tryAgain.innerText = "try again";
+	tryAgain.setAttribute("class", "btn btn-primary mb-2 m-1");
+	tryAgain.setAttribute("type", "button");
+	tryAgain.setAttribute("id", "tryAgain");
+	tryAgain.setAttribute("onclick", "history.go(0)");
+
+	buttons.append(highScores, tryAgain);
+
+	// crap for high score form
+	var form = document.createElement("form");
+	form.setAttribute("name","form");
+	// form.setAttribute("action","");
+	// form.setAttribute("onsubmit");
+
+	var FN = document.createElement("input");
+    FN.setAttribute("type", "text");
+    FN.setAttribute("name", "FullName");
+    FN.setAttribute("placeholder", "Full Name");
+
+	var s = document.createElement("button");
+	s.setAttribute("type", "submit");
+	// s.setAttribute("value", "Submit");
+	s.innerText = "submit";
+
+	form.appendChild(FN); 
+	form.appendChild(s);
+
+	// questionDisplay.append(form);
+	buttons.append(form);
+
+}
 
 starting();
