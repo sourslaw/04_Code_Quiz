@@ -45,6 +45,14 @@ const questions = [
 			"Declaration of Independence"
 		],
 		correct: "American Civil War began"
+	},
+	{
+		question: "Q4: True or False",
+		choices: [
+			"True",
+			"False",
+		],
+		correct: "True"
 	}
 ];
 
@@ -115,4 +123,21 @@ function setTime() {
 	}, 1000);
 }
 
-running();
+function starting() {
+	let startButtEl = document.createElement("button");
+	startButtEl.innerText = "start";
+	startButtEl.setAttribute("class", "btn btn-primary mb-2 m-1");
+	startButtEl.setAttribute("type", "button");
+	startButtEl.setAttribute("id", "startButton");
+
+	buttons.append(startButtEl);
+
+	startButtEl.addEventListener("click", function() {
+		startButtEl.remove();
+		setTime();
+		running();
+
+	});
+};
+
+starting();

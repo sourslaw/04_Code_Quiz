@@ -4,6 +4,8 @@
 
 #magicHole {
 	height: 250px;
+	font-family: 'Playfair Display', serif;
+	font-size: 1.75em;
 }
 
 #numbersArea {
@@ -17,4 +19,10 @@
 
 #fart {
 	text-align: left;
+}
+
+#startButton {
+	margin: 0;
+	position: relative;
+	bottom: 362%;
 }
