@@ -1,6 +1,14 @@
 let score = 0;
 
+let timer = document.getElementById("timer");
+let pointsEarned = document.getElementById("currentScore");
+let highScore = document.getElementById("highScore");
+
 const questionDisplay =  document.getElementById("magicHole");
+
+// timer.innerText = time;
+pointsEarned.innerText = score;
+
 
 // buttons
 const buttons = document.querySelector("#buttons");
@@ -40,10 +48,11 @@ const questions = [
 	}
 ];
 
+let current = 0;
 
 function running() {
-	current = 0;
-	choosen = "";
+	// let current = 0;
+	let choosen = "";
 
 	questionDisplay.value = questions[current].question;
 
@@ -56,31 +65,54 @@ function running() {
 		buttEl.setAttribute("type", "button");
 		buttEl.setAttribute("id", i);
 
+		// appends button elements to the empty div
+		buttons.append(buttEl);
+
+		// buttons event listener
 		buttEl.addEventListener("click", function() {
 			console.log("clicked");
 			console.log(current);
 			console.log(questions[current].choices[i]);
 
+			// removes child nodes (https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/)
+			function removeAllChildNodes(buttons) {
+				while (buttons.firstChild) {
+					buttons.removeChild(buttons.firstChild);
+				}
+			}
+			removeAllChildNodes(buttons);
+
+			// points logic
+			if (questions[current].choices[i] == questions[current].correct) {
+				console.log("correct");
+				score+=5;
+				console.log(score);
+				pointsEarned.innerText = score;
+			// adds seconds to timer
+				secondsLeft+=10;
+			} else {
+				console.log("wrong");
+			}
+
+
+			// move onto the next question
 			current++;
-			questionDisplay.value = questions[current].question;
 			running();
 		});
-
-		buttons.append(buttEl);	
-
-
 	}
 }
 
-function next() {
-	current++;
+let secondsLeft = 205;
 
-	questionDisplay.value = questions[current].question;
-
-	// for (i=0; i < questions[current].choices.length; i++) {
-	// 	buttEl.innerText = questions[current].choices[i];
-		
-	// }
+function setTime() {
+	const timerInterval = setInterval(function() {
+		if (secondsLeft > 0) {
+			secondsLeft--;
+			timer.textContent = (`${secondsLeft} seconds`);
+		} else {
+		clearInterval(timerInterval);
+	  }
+	}, 1000);
 }
 
 running();
