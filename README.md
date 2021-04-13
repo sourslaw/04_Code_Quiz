@@ -10,4 +10,4 @@
 
 ### The codebase meets the general criteria for acceptance:
 ...
-### Deployed application may be seen: . . .
+### Deployed application may be seen: [here](https://sourslaw.github.io/04_Code_Quiz/)
