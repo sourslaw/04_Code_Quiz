@@ -192,7 +192,7 @@ function gameOver() {
 		? JSON.parse(localStorage.getItem('items'))
 		: []
 	localStorage.setItem('items', JSON.stringify(itemsArray))
-	const data = JSON.parse(localStorage.getItem('items'))
+	// const data = JSON.parse(localStorage.getItem('items'))
 
 	// submit score event/button
 	hsSubmit.addEventListener("click", function(event) {
@@ -209,30 +209,31 @@ function gameOver() {
 		hsSubmit.remove();
 	});
 
-	getScores();
+	// getScores();
+	populateTable();
 };
 
 const ol = document.querySelector('ol')
 
-const data = JSON.parse(localStorage.getItem("items"));
+// score table test area
+const data = JSON.parse(localStorage.getItem("items")) || [];
+highScore.textContent = (`${data[0].name}: ${data[0].score}`);
 
-function getScores() {
-	// li function from tania rascia (https://www.taniarascia.com/how-to-use-local-storage-with-javascript/)
-	const liMaker = (text) => {
-		const li = document.createElement('li')
-		li.textContent = text
-		ol.appendChild(li)
-	};
+function populateTable() {
 
-	data.forEach((item) => {
-		liMaker(`${item.name}, ${item.score}`)
+	const scoreList = document.querySelector('.scoretable');
+	// sorts the data array of "items"
+	data.sort( (a, b) => {
+		return b.score - a.score;
 	});
-};
+	// splices the array after whatever the number is
+	data.splice(2);
 
-highScore.textContent = (`${data[0].score}`);
-// local storage crap
-const scoreList = document.getElementById("scoreHole");
-// scoreList.innerText = getScores();
+	// writes to table element in html
+	scoreList.innerHTML = data.map((row) => {
+		return `<tr><td>${row.name}</td><td>${row.score}</tr>`;
+	}).join('');
+};
 
 // starts
 starting();
