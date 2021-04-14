@@ -116,16 +116,16 @@ function running() {
 };
 
 
-let secondsLeft = 205;
+let secondsLeft = 15;
 
 function setTime() {
 	const timerInterval = setInterval(function() {
-		if (secondsLeft > 0) {
-			secondsLeft--;
-			timer.textContent = (`${secondsLeft} seconds`);
-		} else {
-		clearInterval(timerInterval);
-	  }
+		secondsLeft--;
+		timer.textContent = (`${secondsLeft} seconds`);
+		
+		if (secondsLeft == 0 || current == questions.length) {
+			clearInterval(timerInterval);
+		};
 	}, 1000);
 }
 
@@ -173,16 +173,21 @@ function gameOver() {
 	form.setAttribute("name","form");
 	form.setAttribute("id","form");
 
-	var FN = document.createElement("input");
-    FN.setAttribute("type", "text");
-    FN.setAttribute("name", "FullName");
-	FN.setAttribute("placeholder", "Full Name");
+	var hsName = document.createElement("input");
+    hsName.setAttribute("type", "text");
+    hsName.setAttribute("name", "FullName");
+	hsName.setAttribute("placeholder", "Full Name");
 	
-	var s = document.createElement("button");
-	s.setAttribute("type", "submit");
-	s.innerText = "submit";
+	var hsSubmit = document.createElement("button");
+	hsSubmit.setAttribute("type", "submit");
+	hsSubmit.innerText = "submit";
 
-	// Testign
+	// append created form field and button to page
+	form.appendChild(hsName); 
+	form.appendChild(hsSubmit);
+	buttons.append(form);
+
+	// Testing for localStorage
 	let itemsArray = localStorage.getItem('items')
 		? JSON.parse(localStorage.getItem('items'))
 		: []
@@ -190,48 +195,44 @@ function gameOver() {
 	const data = JSON.parse(localStorage.getItem('items'))
 
 	// submit score event/button
-	s.addEventListener("click", function(e) {
-		e.preventDefault();
-
+	hsSubmit.addEventListener("click", function(event) {
+		event.preventDefault();
 		let scoreSet = {
-			name: FN.value,
+			name: hsName.value,
 			score: score
 		};
+		itemsArray.push(scoreSet);
+		localStorage.setItem('items', JSON.stringify(itemsArray));
 
-		itemsArray.push(scoreSet)
-  		localStorage.setItem('items', JSON.stringify(itemsArray))
-	
+		// removes form field and button toe prevent futher submissions
+		hsName.remove();
+		hsSubmit.remove();
 	});
-
-	// append created form field and button to page
-	form.appendChild(FN); 
-	form.appendChild(s);
-	buttons.append(form);
 
 	getScores();
 };
 
 const ol = document.querySelector('ol')
 
+const data = JSON.parse(localStorage.getItem("items"));
 
 function getScores() {
+	// li function from tania rascia (https://www.taniarascia.com/how-to-use-local-storage-with-javascript/)
 	const liMaker = (text) => {
 		const li = document.createElement('li')
 		li.textContent = text
 		ol.appendChild(li)
-	}
-
-	const data = JSON.parse(localStorage.getItem("items"));
+	};
 
 	data.forEach((item) => {
 		liMaker(`${item.name}, ${item.score}`)
-	})
-} 
+	});
+};
 
+highScore.textContent = (`${data[0].score}`);
 // local storage crap
 const scoreList = document.getElementById("scoreHole");
 // scoreList.innerText = getScores();
-
 
 // starts
 starting();
