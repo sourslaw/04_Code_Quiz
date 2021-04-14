@@ -147,8 +147,10 @@ function starting() {
 	});
 };
 
-function gameOver() {
+allScores = [];
 
+function gameOver() {
+	// create high score and reset buttons
 	let highScores = document.createElement("button");
 	highScores.innerText = "high scores";
 	highScores.setAttribute("class", "btn btn-primary mb-2 m-1");
@@ -169,25 +171,67 @@ function gameOver() {
 	// crap for high score form
 	var form = document.createElement("form");
 	form.setAttribute("name","form");
-	// form.setAttribute("action","");
-	// form.setAttribute("onsubmit");
+	form.setAttribute("id","form");
 
 	var FN = document.createElement("input");
     FN.setAttribute("type", "text");
     FN.setAttribute("name", "FullName");
-    FN.setAttribute("placeholder", "Full Name");
-
+	FN.setAttribute("placeholder", "Full Name");
+	
 	var s = document.createElement("button");
 	s.setAttribute("type", "submit");
-	// s.setAttribute("value", "Submit");
 	s.innerText = "submit";
 
+	// Testign
+	let itemsArray = localStorage.getItem('items')
+		? JSON.parse(localStorage.getItem('items'))
+		: []
+	localStorage.setItem('items', JSON.stringify(itemsArray))
+	const data = JSON.parse(localStorage.getItem('items'))
+
+	// submit score event/button
+	s.addEventListener("click", function(e) {
+		e.preventDefault();
+
+		let scoreSet = {
+			name: FN.value,
+			score: score
+		};
+
+		itemsArray.push(scoreSet)
+  		localStorage.setItem('items', JSON.stringify(itemsArray))
+	
+	});
+
+	// append created form field and button to page
 	form.appendChild(FN); 
 	form.appendChild(s);
-
-	// questionDisplay.append(form);
 	buttons.append(form);
 
-}
+	getScores();
+};
 
+const ol = document.querySelector('ol')
+
+
+function getScores() {
+	const liMaker = (text) => {
+		const li = document.createElement('li')
+		li.textContent = text
+		ol.appendChild(li)
+	}
+
+	const data = JSON.parse(localStorage.getItem("items"));
+
+	data.forEach((item) => {
+		liMaker(`${item.name}, ${item.score}`)
+	})
+} 
+
+// local storage crap
+const scoreList = document.getElementById("scoreHole");
+// scoreList.innerText = getScores();
+
+
+// starts
 starting();
