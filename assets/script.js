@@ -130,6 +130,8 @@ function setTime() {
 }
 
 function starting() {
+	lilHighScore()
+	
 	questionDisplay.value = "welcome";
 
 	let startButtEl = document.createElement("button");
@@ -210,7 +212,6 @@ function gameOver() {
 		hsName.remove();
 		hsSubmit.remove();
 	});
-
 	// getScores();
 	populateTable();
 };
@@ -220,17 +221,19 @@ const ol = document.querySelector('ol')
 const data = JSON.parse(localStorage.getItem("items")) || [];
 
 // high score display or not 
-let lettuce = data.sort( (a, b) => {
-	return b.score - a.score;
-});
-if (data.length != 0) {
-	highScore.textContent = lettuce[0]["score"];
-} else {
-	highScore.textContent = "";
+function lilHighScore() {
+	let lettuce = data.sort( (a, b) => {
+		return b.score - a.score;
+	});
+	if (data.length != 0) {
+		highScore.textContent = lettuce[0]["score"];
+	} else {
+		highScore.textContent = "";
+	};
 };
 
-function populateTable() {
 
+function populateTable() {
 	const scoreList = document.querySelector('.scoretable');
 	// sorts the data array of "items" (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 	data.sort( (a, b) => {
@@ -238,7 +241,6 @@ function populateTable() {
 	});
 	// splices the array after whatever the number is
 	let fart = data.splice(7);
-
 	// writes to table element in html
 	scoreList.innerHTML = data.map((row) => {
 		return `<tr><td>${row.name}</td><td>${row.score}</tr>`;
