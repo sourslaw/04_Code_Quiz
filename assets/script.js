@@ -217,13 +217,15 @@ function gameOver() {
 
 const ol = document.querySelector('ol')
 
-// score table test area
 const data = JSON.parse(localStorage.getItem("items")) || [];
 
-// highScore.textContent = (`${data[0].name}: ${data[0].score}`);
+// if statement for high score display
+if (data.length != 0) {
+	highScore.textContent = lettuce[0]["score"];
+} else {
+	highScore.textContent = "";
+};
 
-// let fart = (`${data[0].name}: ${data[0].score}`);
-let trash = [];
 
 function populateTable() {
 
@@ -240,7 +242,6 @@ function populateTable() {
 		return `<tr><td>${row.name}</td><td>${row.score}</tr>`;
 	}).join('');
 };
-
 
 // starts
 starting();
