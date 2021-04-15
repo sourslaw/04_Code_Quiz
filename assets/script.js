@@ -204,6 +204,8 @@ function gameOver() {
 		itemsArray.push(scoreSet);
 		localStorage.setItem('items', JSON.stringify(itemsArray));
 
+		populateTable();
+
 		// removes form field and button toe prevent futher submissions
 		hsName.remove();
 		hsSubmit.remove();
@@ -217,23 +219,28 @@ const ol = document.querySelector('ol')
 
 // score table test area
 const data = JSON.parse(localStorage.getItem("items")) || [];
+
 highScore.textContent = (`${data[0].name}: ${data[0].score}`);
+
+// let fart = (`${data[0].name}: ${data[0].score}`);
+let trash = [];
 
 function populateTable() {
 
 	const scoreList = document.querySelector('.scoretable');
-	// sorts the data array of "items"
+	// sorts the data array of "items" (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 	data.sort( (a, b) => {
 		return b.score - a.score;
 	});
 	// splices the array after whatever the number is
-	data.splice(2);
+	data.splice(7);
 
 	// writes to table element in html
 	scoreList.innerHTML = data.map((row) => {
 		return `<tr><td>${row.name}</td><td>${row.score}</tr>`;
 	}).join('');
 };
+
 
 // starts
 starting();
