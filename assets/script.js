@@ -219,13 +219,15 @@ const ol = document.querySelector('ol')
 
 const data = JSON.parse(localStorage.getItem("items")) || [];
 
-// if statement for high score display
+// high score display or not 
+let lettuce = data.sort( (a, b) => {
+	return b.score - a.score;
+});
 if (data.length != 0) {
 	highScore.textContent = lettuce[0]["score"];
 } else {
 	highScore.textContent = "";
 };
-
 
 function populateTable() {
 
@@ -242,6 +244,7 @@ function populateTable() {
 		return `<tr><td>${row.name}</td><td>${row.score}</tr>`;
 	}).join('');
 };
+
 
 // starts
 starting();
