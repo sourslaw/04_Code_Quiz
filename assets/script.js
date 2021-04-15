@@ -220,7 +220,7 @@ const ol = document.querySelector('ol')
 // score table test area
 const data = JSON.parse(localStorage.getItem("items")) || [];
 
-highScore.textContent = (`${data[0].name}: ${data[0].score}`);
+// highScore.textContent = (`${data[0].name}: ${data[0].score}`);
 
 // let fart = (`${data[0].name}: ${data[0].score}`);
 let trash = [];
@@ -233,7 +233,7 @@ function populateTable() {
 		return b.score - a.score;
 	});
 	// splices the array after whatever the number is
-	data.splice(7);
+	let fart = data.splice(7);
 
 	// writes to table element in html
 	scoreList.innerHTML = data.map((row) => {
