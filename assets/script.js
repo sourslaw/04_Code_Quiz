@@ -109,7 +109,6 @@ function running() {
 
 			if (current == questions.length) {
 				questionDisplay.value = `game is over. you answered ${correct} correctly. your score is ${score}`;
-				
 				console.log('bye bye');
 				gameOver();
 			} else {
@@ -118,7 +117,6 @@ function running() {
 		});
 	};
 };
-
 
 let secondsLeft = 45;
 
@@ -134,6 +132,11 @@ function setTime() {
 			populateTable();
 			stupidButtons();
 		};
+
+		if (current == questions.length) {
+			clearInterval(timerInterval);
+		};
+
 	}, 1000);
 };
 
