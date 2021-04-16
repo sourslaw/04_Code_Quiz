@@ -182,7 +182,7 @@ function starting() {
 	populateTable()
 	
 	questionDisplay.textContent = "Hello . . .";
-	messagePalace.innerText = "Welcome to the JavaScript quiz. \n 1. correct answers are awarded 10 seconds and 10 points \n2. incorrect answers result in a deduction of 5 seconds \n3. if the timer reaches 0, the game is over";
+	messagePalace.innerText = "Welcome to the JavaScript quiz. \n 1. correct answers are awarded 10 points and an additional 10 seconds \n2. incorrect answers result in a deduction of 5 seconds \n3. if the timer reaches 0, the game is over";
 
 	let startButtEl = document.createElement("button");
 	startButtEl.innerText = "start";
