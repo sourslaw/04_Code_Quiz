@@ -9,7 +9,7 @@
 ### The User Story for this project is as follows:
 - A coding boot camp student WANTS to take a timed quiz on JavaScript fundamentals that stores high scores SO THAT they can gauge their progress compared to their peers
 
-### The codebase meets the general criteria for acceptance:
+### The codebase meets the following criteria for acceptance:
 ...
 
 ### Installation

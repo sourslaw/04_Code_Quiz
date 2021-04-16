@@ -87,7 +87,7 @@ const questions = [
 			"null",
 			"booleaned"
 		],
-		correct: "italics()"
+		correct: "true"
 	}
 ];
 
