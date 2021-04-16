@@ -1,5 +1,7 @@
 # A Code Quiz
 ![alt text](assets/images/screenshot.png)
+![alt text](assets/images/screenshotMob.png)
+
 
 ## Description
 - A JavaScript fundamentals quiz
