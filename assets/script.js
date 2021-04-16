@@ -15,44 +15,78 @@ const questionDisplay = document.getElementById("magicHole");
 const buttons = document.querySelector("#buttons");
 
 // questions array
+// questions from (https://www.tutorialspoint.com/javascript/javascript_online_quiz.htm)
+// and (https://data-flair.training/blogs/javascript-quiz-questions/)
 const questions = [
 	{
-		question: "Q1: Who came up with theory of relativity?",
+		question: "Q1: Which built-in method removes the last element from an array and returns that element?",
 		choices: [
-			"Sir Isaac Newton",
-			"Nicolaus Copernicus",
-			"Albert Einstein",
-			"Ralph Waldo Emmerson"
+			"last()",
+			"get()",
+			"pop()",
+			"none of the above"
 		],
-		correct: "Albert Einstein"
+		correct: "pop()"
 	},
 	{
-		question: "Q2: Who is on the two dollar bill?",
+		question: "Q2: Which built-in method returns the characters in a string beginning at the specified location?",
 		choices: [
-			"Thomas Jefferson",
-			"Dwight D. Eisenhower",
-			"Benjamin Franklin",
-			"Abraham Lincoln"
+			"substr()",
+			"getSubstring()",
+			"slice()",
+			"none of the above"
 		],
-		correct: "Thomas Jefferson"
+		correct: "substr()"
 	},
 	{
-		question: "Q3: What event began on April 12, 1861?",
+		question: "Q3: Which of the following function of Boolean object returns a string containing the source of the Boolean object?",
 		choices: [
-			"First manned flight",
-			"California became a state",
-			"American Civil War began",
-			"Declaration of Independence"
+			"toSource()",
+			"valueOf()",
+			"toString()",
+			"DeclarationOfIndependent()"
 		],
-		correct: "American Civil War began"
+		correct: "toSource()"
 	},
 	{
-		question: "Q4: True or False",
+		question: "Q4: Which of the following function of String object causes a string to be italic, as if it were in an <i> tag?",
 		choices: [
-			"True",
-			"False",
+			"fixed()",
+			"fontcolor()",
+			"fontsize()",
+			"italics()"
 		],
-		correct: "True"
+		correct: "italics()"
+	},
+	{
+		question: "Q5: Which of the following statements will show a message as well as ask for user input in a popup?",
+		choices: [
+			"alert()",
+			"prompt()",
+			"confirm()",
+			"imessage()"
+		],
+		correct: "prompt()"
+	},
+	{
+		question: "Q6: What is the correct JavaScript syntax to print “Hello” in the console?",
+		choices: [
+			"print('Hello')",
+			"console.print('Hello')",
+			"log.to('Hello')",
+			"console.log('Hello')"
+		],
+		correct: "console.log('Hello')"
+	},
+	{
+		question: "Q7: Determine the result – String(“Hello”) === “Hello”;",
+		choices: [
+			"true",
+			"false",
+			"null",
+			"booleaned"
+		],
+		correct: "italics()"
 	}
 ];
 
@@ -221,11 +255,11 @@ function gameOver() {
 		itemsArray.push(scoreSet);
 		localStorage.setItem('items', JSON.stringify(itemsArray));
 
-		populateTable();
-
 		// removes form field and button toe prevent futher submissions
 		hsName.remove();
 		hsSubmit.remove();
+
+		populateTable();
 	});
 	// getScores();
 	populateTable();
