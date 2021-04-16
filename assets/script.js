@@ -241,7 +241,7 @@ function gameOver() {
 	// append created form field and button to page
 	form.appendChild(hsName); 
 	form.appendChild(hsSubmit);
-	buttons.append(form);
+	messagePalace.append(form);
 
 	// for localStorage
 	let itemsArray = localStorage.getItem('items')
