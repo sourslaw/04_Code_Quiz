@@ -20,3 +20,8 @@
 #fart {
 	text-align: left;
 }
+
+/* table stuff */
+th {
+	width: 100px;
+}

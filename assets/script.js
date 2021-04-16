@@ -58,6 +58,15 @@ const questions = [
 
 // for index of current question in the questions array
 let current = 0;
+let correct = 0;
+
+// removes child nodes (https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/)
+function removeAllChildNodes(buttons) {
+	while (buttons.firstChild) {
+		buttons.removeChild(buttons.firstChild);
+	}
+};
+
 // main function and logic
 function running() {
 
@@ -79,22 +88,19 @@ function running() {
 		buttEl.addEventListener("click", function() {
 			console.log(`clicked, ${current}, ${questions[current].choices[i]}`);
 
-			// removes child nodes (https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/)
-			function removeAllChildNodes(buttons) {
-				while (buttons.firstChild) {
-					buttons.removeChild(buttons.firstChild);
-				}
-			}
 			removeAllChildNodes(buttons);
 
 			// points logic
 			if (questions[current].choices[i] == questions[current].correct) {
-				score+=5;
+				score+=10;
 				console.log(`correct, ${score}`);
 				pointsEarned.innerText = score;
 			// adds seconds to timer
 				secondsLeft+=10;
+			// increments number of correct answers
+				correct+=1;
 			} else {
+				secondsLeft-=5;
 				console.log("wrong");
 			};
 
@@ -102,32 +108,35 @@ function running() {
 			current++;
 
 			if (current == questions.length) {
-				// questionDisplay.value = "game is over";
-				questionDisplay.value = `game is over. your score is ${score}`;
+				questionDisplay.value = `game is over. you answered ${correct} correctly. your score is ${score}`;
 				
 				console.log('bye bye');
 				gameOver();
 			} else {
 				running();
 			};
-
 		});
 	};
 };
 
 
-let secondsLeft = 15;
+let secondsLeft = 45;
 
 function setTime() {
 	const timerInterval = setInterval(function() {
 		secondsLeft--;
 		timer.textContent = (`${secondsLeft} seconds`);
 		
-		if (secondsLeft == 0 || current == questions.length) {
+		if (secondsLeft == 0) {
 			clearInterval(timerInterval);
+			questionDisplay.value = "game over, you ran out of time . . ."
+			removeAllChildNodes(buttons);
+			populateTable();
+			stupidButtons();
 		};
 	}, 1000);
-}
+};
+
 
 function starting() {
 	lilHighScore()
@@ -151,9 +160,8 @@ function starting() {
 
 allScores = [];
 
-function gameOver() {
-	// create high score and reset buttons
-	let highScores = document.createElement("button");
+function stupidButtons() {
+	const highScores = document.createElement("button");
 	highScores.innerText = "high scores";
 	highScores.setAttribute("class", "btn btn-primary mb-2 m-1");
 	highScores.setAttribute("type", "button");
@@ -161,7 +169,7 @@ function gameOver() {
 	highScores.setAttribute("data-bs-toggle", "modal");
 	highScores.setAttribute("data-bs-target", "#scores");
 
-	let tryAgain = document.createElement("button");
+	const tryAgain = document.createElement("button");
 	tryAgain.innerText = "try again";
 	tryAgain.setAttribute("class", "btn btn-primary mb-2 m-1");
 	tryAgain.setAttribute("type", "button");
@@ -169,32 +177,36 @@ function gameOver() {
 	tryAgain.setAttribute("onclick", "history.go(0)");
 
 	buttons.append(highScores, tryAgain);
+};
+
+function gameOver() {
+
+	stupidButtons();
 
 	// crap for high score form
-	var form = document.createElement("form");
+	const form = document.createElement("form");
 	form.setAttribute("name","form");
 	form.setAttribute("id","form");
 
-	var hsName = document.createElement("input");
+	const hsName = document.createElement("input");
     hsName.setAttribute("type", "text");
     hsName.setAttribute("name", "FullName");
-	hsName.setAttribute("placeholder", "Full Name");
+	hsName.setAttribute("placeholder", "enter your name");
 	
-	var hsSubmit = document.createElement("button");
+	const hsSubmit = document.createElement("button");
 	hsSubmit.setAttribute("type", "submit");
-	hsSubmit.innerText = "submit";
+	hsSubmit.innerText = "submit your score";
 
 	// append created form field and button to page
 	form.appendChild(hsName); 
 	form.appendChild(hsSubmit);
 	buttons.append(form);
 
-	// Testing for localStorage
+	// for localStorage
 	let itemsArray = localStorage.getItem('items')
 		? JSON.parse(localStorage.getItem('items'))
 		: []
 	localStorage.setItem('items', JSON.stringify(itemsArray))
-	// const data = JSON.parse(localStorage.getItem('items'))
 
 	// submit score event/button
 	hsSubmit.addEventListener("click", function(event) {
@@ -216,8 +228,6 @@ function gameOver() {
 	populateTable();
 };
 
-const ol = document.querySelector('ol')
-
 const data = JSON.parse(localStorage.getItem("items")) || [];
 
 // high score display or not 
@@ -232,20 +242,28 @@ function lilHighScore() {
 	};
 };
 
-
 function populateTable() {
-	const scoreList = document.querySelector('.scoretable');
+	const scoreList = document.querySelector('.scoreTableBody');
 	// sorts the data array of "items" (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 	data.sort( (a, b) => {
 		return b.score - a.score;
 	});
 	// splices the array after whatever the number is
-	let fart = data.splice(7);
+	let fart = data.splice(15);
 	// writes to table element in html
 	scoreList.innerHTML = data.map((row) => {
 		return `<tr><td>${row.name}</td><td>${row.score}</tr>`;
 	}).join('');
 };
+
+
+// 	scoreList.innerHTML = data.map((row) => {
+// 		for (i = 0; i < 3; i++) {
+// 			return `<tr><td>${i}</td><td>${row.name}</td><td>${row.score}</td></tr>`;
+// 		};
+// 	}).join('');
+
+// };
 
 
 // starts
