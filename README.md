@@ -12,8 +12,8 @@
 ### The codebase meets the general criteria for acceptance:
 ...
 
+### Installation
+- Deployed application may be seen: [here](https://sourslaw.github.io/04_Code_Quiz/)
+
 ### License
-
 - Licensed under the [MIT](https://opensource.org/licenses/mit-license.php) license.
-
-### Deployed application may be seen: [here](https://sourslaw.github.io/04_Code_Quiz/)
