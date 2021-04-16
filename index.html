@@ -56,7 +56,7 @@
 	<div class="container">
 		<div class="row justify-content-center mt-5">
 			<div class="col-8">
-				<h1 class="text-center">quiz title</h1>
+				<h1 class="text-center">JavaScript Quiz</h1>
 				<!-- timer & scores section -->
 				<div class="card text-center mt-3" id="numbersArea">
 					<div class="row justify-content-center">
@@ -72,7 +72,7 @@
 									<span>current score: </span><span id="currentScore"></span>
 								</div>
 								<div class="col-3">
-									<span>high score: </span><span id="highScore"></span>
+									<span><a href="" data-bs-toggle="modal" data-bs-target="#scores">high score: </a></span><span id="highScore"></span>
 								</div>
 							</div>
 							<hr />
@@ -81,13 +81,12 @@
 				</div>
 				<!-- questions section -->
 				<div class="card text-center mt-2" id="standardCardBody">
-					<!-- <h2 class="text-center mt-3">placeholder</h2> -->
 					<!-- textarea -->
 					<div class="row justify-content-center mt-1" id="startPlace">
 						<div class="col-11">
 							<hr />
-							<input class="form-control text-center" type="text" placeholder="placeholder"
-								id="magicHole">
+								<div class="text-center" id="magicHole"></div>
+								<p class="text-center" id="messagePalace"></p>
 							<hr />
 						</div>
 					</div>
@@ -97,18 +96,6 @@
 					
 					<div class="row justify-content-center mt-1">
 						<div class="col justify-content-center" id="buttons">
-							<!-- buttons get generated H E R E -->
-							<!-- <div class="row justify-content-center">
-								<div class="col-auto">
-									<label for="inputPassword2" class="visually-hidden">Password</label>
-									<input type="password" class="form-control" id="inputPassword2"
-										placeholder="Password">
-								</div>
-								<div class="col-auto">
-									<button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
-								</div>
-							</div> -->
-
 						</div>
 					</div>
 				</div>

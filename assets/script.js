@@ -11,6 +11,7 @@ pointsEarned.innerText = score;
 let highScore = document.getElementById("highScore");
 // queston textarea
 const questionDisplay = document.getElementById("magicHole");
+const messagePalace = document.getElementById("messagePalace");
 // buttons
 const buttons = document.querySelector("#buttons");
 
@@ -104,7 +105,8 @@ function removeAllChildNodes(buttons) {
 // main function and logic
 function running() {
 
-	questionDisplay.value = questions[current].question;
+	questionDisplay.textContent = questions[current].question;
+	messagePalace.textContent = "";
 
 	// generate buttons
 	for (let i = 0; i < questions[current].choices.length; i++) {
@@ -142,7 +144,7 @@ function running() {
 			current++;
 
 			if (current == questions.length) {
-				questionDisplay.value = `game is over. you answered ${correct} correctly. your score is ${score}`;
+				questionDisplay.textContent = `game is over. you answered ${correct} correctly. your score is ${score}`;
 				console.log('bye bye');
 				gameOver();
 			} else {
@@ -161,7 +163,7 @@ function setTime() {
 		
 		if (secondsLeft == 0) {
 			clearInterval(timerInterval);
-			questionDisplay.value = "game over, you ran out of time . . ."
+			questionDisplay.textContent = "game over, you ran out of time . . ."
 			removeAllChildNodes(buttons);
 			populateTable();
 			stupidButtons();
@@ -177,8 +179,10 @@ function setTime() {
 
 function starting() {
 	lilHighScore()
+	populateTable()
 	
-	questionDisplay.value = "welcome";
+	questionDisplay.textContent = "Hello . . .";
+	messagePalace.innerText = "Welcome to the JavaScript quiz. \n 1. correct answers are awarded 10 seconds and 10 points \n2. incorrect answers result in a deduction of 5 seconds \n3. if the timer reaches 0, the game is over";
 
 	let startButtEl = document.createElement("button");
 	startButtEl.innerText = "start";
@@ -292,16 +296,6 @@ function populateTable() {
 		return `<tr><td>${row.name}</td><td>${row.score}</tr>`;
 	}).join('');
 };
-
-
-// 	scoreList.innerHTML = data.map((row) => {
-// 		for (i = 0; i < 3; i++) {
-// 			return `<tr><td>${i}</td><td>${row.name}</td><td>${row.score}</td></tr>`;
-// 		};
-// 	}).join('');
-
-// };
-
 
 // starts
 starting();

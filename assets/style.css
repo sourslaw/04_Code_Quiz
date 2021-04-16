@@ -3,10 +3,14 @@
 }
 
 #magicHole {
-	height: 250px;
+	height: 160px;
 	font-family: 'Playfair Display', serif;
 	font-size: 1.75em;
+	margin-top: 90px;
 }
+/* #messagePalace {
+	margin-top: -70px;
+} */
 
 #numbersArea {
 	box-shadow: rgba(0, 0, 0, 0.07) 0px 2px 8px 0px;
