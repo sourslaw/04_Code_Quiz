@@ -262,7 +262,7 @@ function gameOver() {
 		itemsArray.push(scoreSet);
 		localStorage.setItem('items', JSON.stringify(itemsArray));
 
-		// removes form field and button toe prevent futher submissions
+		// removes form field and button to prevent futher submissions
 		hsName.remove();
 		hsSubmit.remove();
 
