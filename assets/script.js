@@ -156,6 +156,7 @@ function running() {
 
 let secondsLeft = 45;
 
+// timer
 function setTime() {
 	const timerInterval = setInterval(function() {
 		secondsLeft--;
@@ -176,7 +177,7 @@ function setTime() {
 	}, 1000);
 };
 
-
+// start game function. creates start button and displays instructions
 function starting() {
 	lilHighScore()
 	populateTable()
@@ -199,8 +200,7 @@ function starting() {
 	});
 };
 
-allScores = [];
-
+// creates highscore and try again buttons. to be called if timer reaches 0, or player reaches end of quiz
 function stupidButtons() {
 	const highScores = document.createElement("button");
 	highScores.innerText = "high scores";
@@ -220,11 +220,12 @@ function stupidButtons() {
 	buttons.append(highScores, tryAgain);
 };
 
+// game over function
 function gameOver() {
 
 	stupidButtons();
 
-	// crap for high score form
+	// high score form
 	const form = document.createElement("form");
 	form.setAttribute("name","form");
 	form.setAttribute("id","form");
@@ -243,11 +244,12 @@ function gameOver() {
 	form.appendChild(hsSubmit);
 	messagePalace.append(form);
 
-	// for localStorage
+	// for localStorage (https://www.beyondjava.net/elvis-operator-aka-safe-navigation-javascript-typescript)
 	let itemsArray = localStorage.getItem('items')
 		? JSON.parse(localStorage.getItem('items'))
 		: []
-	localStorage.setItem('items', JSON.stringify(itemsArray))
+
+	localStorage.setItem('items', JSON.stringify(itemsArray));
 
 	// submit score event/button
 	hsSubmit.addEventListener("click", function(event) {
@@ -256,6 +258,7 @@ function gameOver() {
 			name: hsName.value,
 			score: score
 		};
+
 		itemsArray.push(scoreSet);
 		localStorage.setItem('items', JSON.stringify(itemsArray));
 
@@ -269,6 +272,7 @@ function gameOver() {
 	populateTable();
 };
 
+// getting item from local storage and set to variable
 const data = JSON.parse(localStorage.getItem("items")) || [];
 
 // high score display or not 
@@ -283,8 +287,11 @@ function lilHighScore() {
 	};
 };
 
+// populate highscore table function
 function populateTable() {
+
 	const scoreList = document.querySelector('.scoreTableBody');
+
 	// sorts the data array of "items" (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
 	data.sort( (a, b) => {
 		return b.score - a.score;
